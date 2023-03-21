@@ -38,21 +38,29 @@ def main():
 
     schema = StructType(
         [
-            StructField("marketplace", StringType(), True),
-            StructField("customer_id", StringType(), True),
-            StructField("review_id", StringType(), True),
-            StructField("product_id", StringType(), True),
-            StructField("product_parent", StringType(), True),
-            StructField("product_title", StringType(), True),
-            StructField("product_category", StringType(), True),
-            StructField("star_rating", IntegerType(), True),
-            StructField("helpful_votes", IntegerType(), True),
-            StructField("total_votes", IntegerType(), True),
-            StructField("vine", StringType(), True),
-            StructField("verified_purchase", StringType(), True),
-            StructField("review_headline", StringType(), True),
-            StructField("review_body", StringType(), True),
-            StructField("review_date", StringType(), True),
+            StructField("demographic", StringType(), True),
+            StructField("dbn", StringType(), True),
+            StructField("school_name", StringType(), True),
+            StructField("cohort", StringType(), True),
+            StructField("total_cohort", StringType(), True),
+            StructField("total_grads_n", StringType(), True),
+            StructField("total_grads_perc_cohort", StringType(), True),
+            StructField("total_regents_n", StringType(), True),
+            StructField("total_regents_perc_cohort", StringType(), True),
+            StructField("total_regents_perc_grads", StringType(), True),
+            StructField("advanced_regents_n", StringType(), True),
+            StructField("advanced_regents_perc_cohort", StringType(), True),
+            StructField("advanced_regents_perc_grads", StringType(), True),
+            StructField("regents_wo_advanced_n", StringType(), True),
+            StructField("regents_wo_advanced_perc_cohort", StringType(), True),
+            StructField("regents_wo_advanced_perc_grads", StringType(), True),
+            StructField("local_n", StringType(), True),
+            StructField("local_perc_cohort", StringType(), True),
+            StructField("local_perc_grads", StringType(), True),
+            StructField("still_enrolled_n", StringType(), True),
+            StructField("still_enrolled_perc_cohort", StringType(), True),
+            StructField("dropped_out_n", StringType(), True),
+            StructField("dropped_out_perc_cohort", StringType(), True),
         ]
     )
 
@@ -63,12 +71,11 @@ def main():
         AnalysisRunner(spark)
         .onData(dataset)
         .addAnalyzer(Size())
-        .addAnalyzer(Completeness("review_id"))
-        .addAnalyzer(ApproxCountDistinct("review_id"))
-        .addAnalyzer(Mean("star_rating"))
-        .addAnalyzer(Compliance("top star_rating", "star_rating >= 4.0"))
-        .addAnalyzer(Correlation("total_votes", "star_rating"))
-        .addAnalyzer(Correlation("total_votes", "helpful_votes"))
+        .addAnalyzer(Completeness("cohort"))
+        .addAnalyzer(ApproxCountDistinct("dbn"))
+        .addAnalyzer(Mean("total_cohort"))
+        .addAnalyzer(Correlation("dropped_out_n", "local_n"))
+        .addAnalyzer(Correlation("dropped_out_n", "advanced_regents_n"))
         .run()
     )
 
@@ -85,12 +92,8 @@ def main():
         .addCheck(
             Check(spark, CheckLevel.Error, "Review Check")
             .hasSize(lambda x: x >= 200000)
-            .hasMin("star_rating", lambda x: x == 1.0)
-            .hasMax("star_rating", lambda x: x == 5.0)
-            .isComplete("review_id")
-            .isUnique("review_id")
-            .isComplete("marketplace")
-            .isContainedIn("marketplace", ["US", "UK", "DE", "JP", "FR"])
+            .isComplete("cohort")
+            .isUnique("dbn")
         )
         .run()
     )
