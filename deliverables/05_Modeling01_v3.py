@@ -1,9 +1,5 @@
 import sys
 import subprocess
-subprocess.check_call([sys.executable, "-m", "pip", "install", "scikit-optimize"])
-subprocess.check_call([sys.executable, "-m", "pip", "install", "sagemaker"])
-
-import boto3
 import pandas as pd
 import numpy as np
 from skopt import BayesSearchCV
@@ -28,6 +24,14 @@ if __name__ == "__main__":
     # Start timer script
     start_time = dt.datetime.today()
 
+    # Parse input arguments
+    train_x01_uri = sys.argv[1]
+    train_y01_uri = sys.argv[2]
+
+    # Load input data from S3
+    train_x01 = pd.read_csv(train_x01_uri)
+    train_y01 = np.load(train_y01_uri)
+
     # Citation: Hochberg, 2018; Shanmukh, 2021
     m3v2_ls_pip = Pipeline([('si', SimpleImputer(strategy='median')),
                             ('ss', StandardScaler()),
@@ -37,7 +41,6 @@ if __name__ == "__main__":
     selection_hparam = Categorical(['cyclic', 'random'])
     max_iter_hparam = Integer(100, 5000, prior='log-uniform')
     warm_start_hparam = Categorical([False, True])
-
 
     m3v2_ls_grd = {'ls__alpha': alpha_hparam,
                    'ls__selection': selection_hparam,
