@@ -1,12 +1,15 @@
 # Project to Develop a ML Model in the Cloud
 ADS-508 Final Project using AWS Cloud Resources
 
-#### -- Programming Languages/Platforms: Python, Jupyter Notebooks, MySQL, AWS
+#### -- Programming Languages:
+Python, Jupyter Notebooks, SQL
+#### -- Amazon Web Services:
+Amazon SageMaker (SM) Studio, SM Autopilot, S3, Athena, and AWS Glue 
 #### -- Project Status: [Active]
 
 
 ## Overview
-This graduate project is creating a scenario in which we head a company called Community First Consulting (CFC), which is a mid-range consulting firm specializing in the cooperation between law enforcement agencies and community-focused mental health resource groups. The New York City Police Department (NYPD) has recently contracted CFC to develop a machine learning model to identify boroughs of the city that could benefit from increased community resources based on previously collected data. The goal is to optimize this identification process, so that the resources and funding once required to analyze this data can be used directly in the communities that need it.
+This graduate project is creating a scenario in which we head a company called Community First Consulting (CFC), which is a mid-range consulting firm specializing in the cooperation between law enforcement agencies and community-focused mental health resource groups. The New York City Police Department (NYPD) has recently contracted CFC to develop a machine learning model to identify boroughs of the city that could benefit from increased community resources based on previously collected data. The goal is to optimize this identification process, so that the resources and funding once required to analyze this data can be used directly in the communities that need it.\
 *Note:* The company is not real, but all data, analyses, and developed models are. See references for data sources.
 
 
@@ -30,6 +33,7 @@ CFC has been hired by the City of NY Police Department to investigate relationsh
 ## Methods Used
 * Exploratory data analysis (EDA)
 * Train/test split
+* Regression
 * Machine learning
 * SageMaker Studio
 * Athena SQL queries
