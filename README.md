@@ -31,9 +31,10 @@ CFC has been hired by NYC to investigate relationships between crime rates, evic
 * Train/test split
 * Regression
 * Machine learning
-* SageMaker Studio
-* Athena SQL queries
-* S3 storage and access
+* SQL queries (Athena)
+* data storage and access (S3)
+* Hyperparameter tuning
+* Model evaluation (e.g., RMSE, R-sq)
 
 ## Getting Started
 1. Clone this repo (for help see this [tutorial](https://help.github.com/articles/cloning-a-repository/)).
