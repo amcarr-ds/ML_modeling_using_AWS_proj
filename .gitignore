@@ -6,6 +6,7 @@ wip
 *.zip
 ref_docs/dd_diagrams/*
 ref_docs/labs-main/*
+ref_docs/archives/*
 
 # Jupyter Notebook
 
